@@ -26,7 +26,7 @@ public class Project3MVC extends Application {
         ticketController tickCont = new ticketController(tickModel, tickView);
         
         
-        Scene scene = new Scene(tickView, 600, 500);
+        Scene scene = new Scene(tickView, 900, 700);
         
         primaryStage.setTitle("Ticket MVC");
         primaryStage.setScene(scene);

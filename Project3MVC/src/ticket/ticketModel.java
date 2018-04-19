@@ -16,67 +16,79 @@ import java.util.ArrayList;
  * @author Luis G
  */
 public class ticketModel {
-    
+
     ArrayList<ticket> ticketDB = new ArrayList<ticket>();
     ticket currentTicket = new ticket();
-    
-    OutputStreamWriter out; 
-    
-    public ticketModel(){
-        
-        try{
-                out = new OutputStreamWriter(new BufferedOutputStream(
-                        new FileOutputStream("TicketList.txt",true)));
-            }catch (Exception e){
-                
-            }
-        
+
+    OutputStreamWriter out;
+
+    public ticketModel() {
+
+        try {
+            out = new OutputStreamWriter(new BufferedOutputStream(
+                    new FileOutputStream("TicketList.dat", true)));
+        } catch (Exception e) {
+
+        }
+
     }
-    
-    public void setCurrentTicket(ticket currTicket){
+
+    public void setCurrentTicket(ticket currTicket) {
         currentTicket = currTicket;
         ticketDB.add(currentTicket);
     }
-    
-    public ticket getCurrentTicket(){
+
+    public ticket getCurrentTicket() {
         return currentTicket;
     }
-    
-    public void storeTicketObject(ticket currentTicket){
+
+    public void storeTicketObject(ArrayList<ticket> tick) {
+
+        tick = getCitations();
         
-        
-        try
-        {
-            
-            out.write(currentTicket.getLicenseNo());
-            out.write("\r\n");
-            out.write(currentTicket.getState());
-            out.write("\r\n");
-            out.write(currentTicket.getPermitNo());
-            out.write("\r\n");
-            out.write(currentTicket.getVehicleMake() + " " + currentTicket.getVehicleModel());
-            out.write("\r\n");
-            out.write(currentTicket.getColor());
-            out.write("\r\n");
-            out.write(currentTicket.getViolationType());
-            out.write("\r\n");
-            out.write(currentTicket.getDate());
-            out.write("\r\n");
-            out.write(currentTicket.getTime());
-            out.write("\r\n");
-            out.write(currentTicket.getLocation());
-            out.write("\r\n");
-            out.write(currentTicket.getIssuedBy());
-            out.write("\r\n");
+        try {
+            for (int i = 0; i < tick.size(); i++) {
+                out.write("Licesnse No.: ");
+                out.write(currentTicket.getLicenseNo());
+                out.write("\n");
+                out.write("State: ");
+                out.write(currentTicket.getState());
+                out.write("\n");
+                out.write("Permit No.: ");
+                out.write(currentTicket.getPermitNo());
+                out.write("\n");
+                out.write("Vehicle Make/Model: ");
+                out.write(currentTicket.getVehicleMake() + "/" + currentTicket.getVehicleModel());
+                out.write("\n");
+                out.write("Color: ");
+                out.write(currentTicket.getColor());
+                out.write("\n");
+                out.write("Violation Type: ");
+                out.write(currentTicket.getViolationType());
+                out.write("\n");
+                out.write("Date: ");
+                out.write(currentTicket.getDate());
+                out.write("\r\n");
+                out.write("Time: ");
+                out.write(currentTicket.getTime());
+                out.write("\n");
+                out.write("Location: ");
+                out.write(currentTicket.getLocation());
+                out.write("\n");
+                out.write("Issued By: ");
+                out.write(currentTicket.getIssuedBy());
+                out.write("\n");
+                out.write("\n");
+            }
             out.close();
             System.out.println("Print Succesfull!!!");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Print not successfull");
         }
     }
-    
-    public ArrayList<ticket> getCitations(){
+
+    public ArrayList<ticket> getCitations() {
         return ticketDB;
     }
-    
+
 }

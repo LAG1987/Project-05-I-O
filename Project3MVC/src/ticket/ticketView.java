@@ -6,6 +6,7 @@
 package ticket;
 
 //import com.sun.org.apache.xpath.internal.operations.Bool;
+import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -541,16 +542,16 @@ public class ticketView extends GridPane {
     public void setTitle(Label title) {
         this.title = title;
     }
-    
-    private String desc = "PAYMENTS \n"+ "Payments can be made at the following office\n"+ "Business Office, Tandy 107\n"
-                        + "Monday thru Friday: 8:00 am - 5:00 pm\n"+ "$25 per citation, other fees may apply\n"+ "$100 for boot removal\n\n"
-                        + "Payment can be mailed to the following address: \n\n"+ "TSC C/O Finance Dept\n"+ "Attn: Parking Enforcement\n"
-                        + "80 Fort Brown\n"+ "Brownsville, TX 78520\n\n"+ "DO NOT MAIL CASH\n\n"+ "For more information on parking citations please visit: \n"
-                        + "www.tsc.edu/parking";
-    
+
+    private String desc = "PAYMENTS \n" + "Payments can be made at the following office\n" + "Business Office, Tandy 107\n"
+            + "Monday thru Friday: 8:00 am - 5:00 pm\n" + "$25 per citation, other fees may apply\n" + "$100 for boot removal\n\n"
+            + "Payment can be mailed to the following address: \n\n" + "TSC C/O Finance Dept\n" + "Attn: Parking Enforcement\n"
+            + "80 Fort Brown\n" + "Brownsville, TX 78520\n\n" + "DO NOT MAIL CASH\n\n" + "For more information on parking citations please visit: \n"
+            + "www.tsc.edu/parking";
+
     //labels
-    private Label title = new Label ("Parking Ticket Form");
-    private Label title2 = new Label ("Current Citation");
+    private Label title = new Label("Parking Ticket Form");
+    private Label title2 = new Label("Current Citation");
     private Label liscenseNo = new Label("-Liscense No.: ");
     private Label state = new Label("-State: ");
     private Label permitNo = new Label("-Permit No: ");
@@ -566,7 +567,7 @@ public class ticketView extends GridPane {
     private Label violationType = new Label("-Violation Type:");
     private Label description = new Label(desc);
     //private Bool check;
-    
+
     //textfields
     private TextField liscenseNoTF = new TextField();
     private TextField stateTF = new TextField();
@@ -580,10 +581,10 @@ public class ticketView extends GridPane {
     private TextField timeTF = new TextField();
     private TextField issuedByTF = new TextField();
     private TextField violationTypeTF = new TextField();
-    
+
     //textarea variables
     private TextArea tickInfo = new TextArea();
-    
+
     //button variables
     private Button back = new Button("<<");
     private Button add = new Button("Add");
@@ -591,46 +592,64 @@ public class ticketView extends GridPane {
     private Button paid = new Button("Paid/Unpaid");
     private Button print = new Button("Print to File");
     private Button exit = new Button("Exit");
-    
+    private Button display = new Button("Display Ticket");
+
     //Panes
     private GridPane grid = new GridPane();
     private BorderPane root = new BorderPane();
-    
+
     //extra variables
     private int index = 0;
     private int currentInt;
     private String sCheck;
-    
-    private ticketModel tMod;
-    
-    public void updateList(int i)
-    {
-        if(!tMod.getCitations().isEmpty())
-        {
-            getTickInfo().setText("Liscense No: " + gettMod().getCitations().get(i).getLicenseNo() +
-                                "\nState: " + gettMod().getCitations().get(i).getState() +
-                                "\nPermit No: " + gettMod().getCitations().get(i).getPermitNo() + 
-                                "\nVehicle Make/Model: " + gettMod().getCitations().get(i).getVehicleMake() + "/" + gettMod().getCitations().get(i).getVehicleModel()+
-                                "\nColor: " + gettMod().getCitations().get(i).getColor() + 
-                                "\nViolation: " + gettMod().getCitations().get(i).getViolationType() +
-                                "\nDate: " + gettMod().getCitations().get(i).getDate() + 
-                                "\nTime: " + gettMod().getCitations().get(i).getTime() + 
-                                "\nLocation: " + gettMod().getCitations().get(i).getLocation() + 
-                                "\nIssued By: " + gettMod().getCitations().get(i).getIssuedBy() +
-                                "\nPaid: " + gettMod().getCitations().get(i).getCheck());
-        }
-    }  
-    
-        public ticketView(){
-        
+
+    private ticketModel tMod = new ticketModel();
+
+    public void updateList(ArrayList<ticket> ticks) {
+
+        ticket tick = (ticket) ticks.get(index);
+
+        String getLiscenseNo = tick.getLicenseNo();
+        String getState = tick.getState();
+        String getPermitNo = tick.getPermitNo();
+        String getVehicleMake = tick.getVehicleMake();
+        String getVehicleModel = tick.getVehicleModel();
+        String getColor = tick.getColor();
+        String getViolationType = tick.getViolationType();
+        String getDate = tick.getDate();
+        String getTime = tick.getTime();
+        String getLocation = tick.getLocation();
+        String getIssuedBy = tick.getIssuedBy();
+        String getCheck = tick.getCheck();
+
+        String curr = "Liscense No: " + getLiscenseNo
+                + "\nState: " + getState
+                + "\nPermit No: " + getPermitNo
+                + "\nVehicle Make/Model: " + getVehicleMake
+                + "/"
+                + getVehicleModel
+                + "\nColor: " + getColor
+                + "\nViolation: " + getViolationType
+                + "\nDate: " + getDate
+                + "\nTime: " + getTime
+                + "\nLocation: " + getLocation
+                + "\nIssued By: " + getIssuedBy
+                + "\nPaid: " + getCheck;
+
+        tickInfo.setText(curr);
+
+    }
+
+    public ticketView() {
+
         //initialize title fonts 
         getTitle().setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.ITALIC, 40));
         getTitle2().setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.ITALIC, 40));
-        
+
         //setting up spaces 
         this.setHgap(10);
         this.setVgap(10);
-        
+
         //set up h and v box variables
         HBox hbox1 = new HBox();
         HBox hbox2 = new HBox();
@@ -639,38 +658,38 @@ public class ticketView extends GridPane {
         VBox tbox1 = new VBox();
         VBox tbox2 = new VBox();
         VBox dbox = new VBox();
-        
+
         //initializing the boxs for GUI setup
         this.getChildren().clear();
         tbox1.getChildren().add(getTitle());
-        vbox1.getChildren().addAll(getLiscenseNo(),liscenseNoTF, 
-                                   getState(),stateTF, 
-                                   getPermitNo(),permitNoTF, 
-                                   getVehicleMake(),vehicleMakeTF, 
-                                   getVehicleModel(),vehicleModelTF, 
-                                   getColor(),colorTF, 
-                                   getViolationType(),violationTypeTF, 
-                                   getDate(),dateTF, 
-                                   getLocation(),locationTF, 
-                                   getTime(),timeTF, 
-                                   getIssuedBy(),issuedByTF);
-        tbox2.getChildren().add(getTitle2());
-        vbox2.getChildren().addAll(getTickInfo(), getDescription());
-        hbox1.getChildren().addAll(getBack(), getAdd(), getPrint(), getPaid(), getNext());
-        hbox2.getChildren().add(getExit());
-        
+        vbox1.getChildren().addAll(liscenseNo, liscenseNoTF,
+                state, stateTF,
+                permitNo, permitNoTF,
+                vehicleMake, vehicleMakeTF,
+                vehicleModel, vehicleModelTF,
+                color, colorTF,
+                violationType, violationTypeTF,
+                date, dateTF,
+                location, locationTF,
+                time, timeTF,
+                issuedBy, issuedByTF);
+        tbox2.getChildren().add(title2);
+        vbox2.getChildren().addAll(tickInfo, description);
+        hbox1.getChildren().addAll(back, add, print, display, paid, next);
+        hbox2.getChildren().add(exit);
+
         //outputting GUIs
         this.addRow(0, tbox1);
-        this.add(vbox1,0,1);
-        this.add(tbox2,1,0);
-        this.add(vbox2,1,1);
-        this.add(hbox1,0,2);
-        this.add(hbox2,0,3);
-        
+        this.add(vbox1, 0, 1);
+        this.add(tbox2, 1, 0);
+        this.add(vbox2, 1, 1);
+        this.add(hbox1, 0, 2);
+        this.add(hbox2, 0, 3);
+
     }
-    
-    public void clearFields(){
-        
+
+    public void clearFields() {
+
         getLiscenseNoTF().clear();
         getStateTF().clear();
         getPermitNoTF().clear();
@@ -683,7 +702,7 @@ public class ticketView extends GridPane {
         getTimeTF().clear();
         getIssuedByTF().clear();
         getViolationTypeTF().clear();
-        
+
     }
 
     /**
@@ -713,5 +732,19 @@ public class ticketView extends GridPane {
     public void setPrint(Button print) {
         this.print = print;
     }
-    
+
+    /**
+     * @return the display
+     */
+    public Button getDisplay() {
+        return display;
+    }
+
+    /**
+     * @param display the display to set
+     */
+    public void setDisplay(Button display) {
+        this.display = display;
+    }
+
 }
